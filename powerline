@@ -1,0 +1,19 @@
+#!/bin/sh
+
+case $1 in
+   config)
+        cat <<'EOM'
+graph_title Powerline speed
+graph_vlabel rx
+rx.label RX
+graph_vlabel tx
+tx.label TX
+EOM
+        exit 0;;
+esac
+
+printf "tx.value "
+/usr/local/bin/int6krate -i br0 | grep TX | cut -d ' ' -f 5
+
+printf "rx.value "
+/usr/local/bin/int6krate -i br0 | grep RX | cut -d ' ' -f 5
